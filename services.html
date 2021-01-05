@@ -438,59 +438,52 @@
           <div class="bigline"></div>
           <div class="smallline"></div>
         </div>
-        <div class="row">
-          <div class="col-md-12 col-lg-12 cd-filter-block mb-0">
-            <div class="form-contact cd-filter-content p-0 sec-bx">
-              <h2 class="section-heading mb-1">Full out the Contact form to contact us</h2>
-              <p >We Will Help You To Choose The Best Plan!</p>
-              <form id="contactForm" method="POST">
-                <div class="row">
-                  <div class="col-md-6">
-                    <label><i class="fas fa-user-tie"></i></label>
-                    <input id="name" type="text" name="name" placeholder="Full Name" required="">
-                  </div>
-                  <div class="col-md-6">
-                    <label><i class="fas fa-envelope"></i></label>
-                    <input id="email" type="email" name="email" placeholder="Email Address" required="">
-                  </div>
-                  <div class="col-md-6">
-                    <label><i class="fas fa-file-alt"></i></label>
-                    <input id="subject" type="text" name="subject" placeholder="Subject" required>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="cd-select mt-4">
-                      <label class="db"></label>
-                      <select id="department" name="department" class="select-filter">
-                        <option value="">Choose Department</option>
-                        <option value="Support/Help Desk">Support/Help Desk</option>
-                        <option value="Commercial Department">Commercial Department</option>
-                        <option value="Sales Department">Sales Department</option>
-                        <option value="Schedule Metings">Schedule Metings</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group mt-4">
-                      <textarea id="message" name="message" class="form-control" rows="5" placeholder="Message..."></textarea>
-                    </div>
-                  </div>
-                  <div class="col-md-6 mt-5">
-                    <input name="newsletter" type="checkbox" id="checkbox" class="filter">
-                    <label for="checkbox" class="checkbox-label c-grey mb-4" ><div>I have read and accept the terms of the privacy policy - <a href="legal" class="golink">RGPD</a></div></label>
-                    <button type="submit" value="Submit" class="btn btn-default-yellow-fill float-left mr-3">Submit Ticket</button>
-                    <button type="reset" value="reset" class="btn btn-default-fill mt-0 mb-3 mr-3">Reset</button><br>
-                  </div>
-                  <div id="msgSubmit" class="col-md-12 mt-4">
-                    <h3 class="c-pink"> Message Submitted!</h3>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-  </section>
+    <?php
+
+if($_POST["submit"]) {
+    $recipient="your@email.address";
+    $subject="Form to email message";
+    $sender=$_POST["sender"];
+    $senderEmail=$_POST["senderEmail"];
+    $message=$_POST["message"];
+
+    $mailBody="Name: $sender\nEmail: $senderEmail\n\n$message";
+
+    mail($recipient, $subject, $mailBody, "From: $sender <$senderEmail>");
+
+    $thankYou="<p>Thank you! Your message has been sent.</p>";
+}
+
+?><!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Contact form to email</title>
+</head>
+
+<body>
+
+    <?=$thankYou ?>
+
+    <form method="post" action="contact.php">
+        <label>Name:</label>
+        <input name="sender">
+
+        <label>Email address:</label>
+        <input name="senderEmail">
+
+        <label>Message:</label>
+        <textarea rows="5" cols="20" name="message"></textarea>
+
+        <input type="submit" name="submit">
+    </form>
+
+</body>
+
+</html>
+
 </section>
 
 <section class="cid-r7lKDEpS1z" id="footer1-d">
