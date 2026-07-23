@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#008204" />
+    <link href="assets/css/styles.css" rel="stylesheet" type="text/css">
+    <title>Privacy Policy</title>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <header class="nav"><a href="index.html" class="logo"><img src="assets/images/Logo.png" height="77" width="122"
+                alt="Dabblecrat Logo"></a>
+        <input class="menu-btn" type="checkbox" id="menu-btn" aria-label="Main Nav" />
+        <label class="menu-icon" for="menu-btn"><span class="navicon" tabindex="0"></span></label>
+        <ul class="menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="media.html">Dabblecraft Media</a></li>
+            <li><a href="communities.html">Communities</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+    </header>
+
+    <div class="privacy-about">
+        <div class="privacy-main">
+            <h1>DabbleBot Privacy Policy</h1>
+            <p><strong>Last updated: July 2026</strong></p>
+            <p>This Privacy Policy describes how DabbleBot ("the bot", "we", "us") collects, uses, stores, and processes
+                data when added to a Discord server. By adding DabbleBot to your server, you acknowledge and consent to
+                the practices described below.</p>
+            <hr>
+
+            <h2>1. Data We Collect</h2>
+
+            <h3>1.1 Server Members Intent Data</h3>
+            <p>When a member joins, leaves, or is updated in a server where DabbleBot is present, the bot may read:</p>
+            <ul>
+                <li>Discord user ID</li>
+                <li>Display name and username</li>
+                <li>Account creation date</li>
+                <li>Avatar URL</li>
+                <li>Current roles</li>
+                <li>Nickname changes</li>
+                <li>Voice channel movements</li>
+            </ul>
+            <p>This data powers automated verification (CAPTCHA), welcome/leave messages, alt account detection,
+                automatic role assignment, time-based roles, server statistics, moderation logging, and server backup
+                features.</p>
+
+            <h3>1.2 Presence Intent Data</h3>
+            <p>DabbleBot may read member presence states (online, idle, DND, offline) and activities (including
+                streaming status) for:</p>
+            <ul>
+                <li>Server statistics displays (online/offline breakdowns)</li>
+                <li>User info commands (on-demand display of a user's current status and activities)</li>
+                <li>Role assignment commands that target online members only</li>
+            </ul>
+            <p>Presence data is read transiently and is <strong>not stored</strong> off-platform.</p>
+
+            <h3>1.3 Message Content Intent Data</h3>
+            <p>DabbleBot may read message content for the following purposes:</p>
+            <ul>
+                <li><strong>Content Moderation (Scanner):</strong> Message text and images are sent to the Sightengine
+                    API for automated NSFW/profanity detection. No data is stored locally.</li>
+                <li><strong>Anti-Spam (Defender):</strong> Message content is cached in RAM (maximum 3,000 messages or
+                    48 hours) for spam pattern detection. Content is sent to Google Perspective API with the
+                    <code>doNotStore: true</code> flag for toxicity scoring. No message content is written to disk.
+                </li>
+                <li><strong>Moderation Logging:</strong> When messages are edited or deleted, before/after content is
+                    posted to designated moderation log channels on Discord.</li>
+                <li><strong>Warning System Automod:</strong> Message content is read transiently in memory for anti-spam
+                    detection and regex-based content rules. Not persisted to disk.</li>
+                <li><strong>Anti-Scam (StopNitroScams):</strong> Messages are scanned for known scam patterns using a
+                    transient in-memory heuristic. No message content is stored.</li>
+                <li><strong>XP/Leveling:</strong> The bot reads only the author ID and guild ID to award XP. Message
+                    content is <strong>not</strong> read or stored for this feature.</li>
+                <li><strong>Reminders, Suggestions, and Reports:</strong> User-initiated text content (reminder text,
+                    suggestion text, report text) is stored until the reminder fires, the suggestion is resolved, or the
+                    report is manually deleted by an admin.</li>
+                <li><strong>Command Statistics:</strong> Only command names are counted. Message content is not stored.
+                </li>
+                <li><strong>Quote Game:</strong> Single-word answers from players are recorded and the original message
+                    is deleted.</li>
+                <li><strong>Ticket Transcripts:</strong> When a ticket is closed, the bot can optionally export a
+                    transcript to a Discord channel (on-platform).</li>
+            </ul>
+
+            <h3>1.4 Other Data Collected</h3>
+            <ul>
+                <li><strong>Economy and Game Data:</strong> User IDs, currency balances, game statistics (wins, losses,
+                    cooldowns), inventories, XP, and levels are stored for economy and game features.</li>
+                <li><strong>Warning Records:</strong> User IDs, warning levels, reasons, issuing moderator IDs,
+                    timestamps, and durations are stored for the warning system.</li>
+                <li><strong>Timezone:</strong> Per-user IANA timezone strings for timezone-related features.</li>
+                <li><strong>Sticky Roles:</strong> Per-member role ID lists for role persistence across join/leave
+                    cycles.</li>
+                <li><strong>Server Configuration:</strong> Per-guild settings including channel IDs, role IDs, toggle
+                    states, and feature configurations.</li>
+            </ul>
+
+            <hr>
+
+            <h2>2. How Data Is Stored</h2>
+            <p>All data is stored on the server hosting DabbleBot (a dedicated Virtual Private Server). Data is
+                persisted as JSON files under a restricted data directory. Some features additionally use SQLite
+                databases for larger datasets.</p>
+            <p><strong>Encryption:</strong> All user data is encrypted at rest using filesystem-level encryption
+                (fscrypt with AES-256-XTS). The encryption keys are managed by the operating system kernel's keystore.
+            </p>
+
+            <hr>
+
+            <h2>3. Data Retention</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Data Type</th>
+                            <th>Retention Period</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Server configuration</td>
+                            <td>Until manually changed by server admin</td>
+                        </tr>
+                        <tr>
+                            <td>Warning records</td>
+                            <td>Until manually deleted by admin or via data deletion request</td>
+                        </tr>
+                        <tr>
+                            <td>Economy balances and game stats</td>
+                            <td>Until manually reset or via data deletion request</td>
+                        </tr>
+                        <tr>
+                            <td>XP/leveling data</td>
+                            <td>Until manually reset or via data deletion request</td>
+                        </tr>
+                        <tr>
+                            <td>Reminder content</td>
+                            <td>Until reminder fires (then deleted)</td>
+                        </tr>
+                        <tr>
+                            <td>Suggestion text</td>
+                            <td>Until suggestion is resolved or removed by admin</td>
+                        </tr>
+                        <tr>
+                            <td>Report text</td>
+                            <td>Until manually deleted by admin or via data deletion request</td>
+                        </tr>
+                        <tr>
+                            <td>Sticky role assignments</td>
+                            <td>Until manually cleared or via data deletion request</td>
+                        </tr>
+                        <tr>
+                            <td>CAPTCHA verification state</td>
+                            <td>In-memory only, cleared on completion/timeout</td>
+                        </tr>
+                        <tr>
+                            <td>Anti-spam message cache</td>
+                            <td>In-memory only, maximum 48 hours or 3,000 messages</td>
+                        </tr>
+                        <tr>
+                            <td>Server backups (Cartographer)</td>
+                            <td>Capped at admin-configured maximum backups per server</td>
+                        </tr>
+                        <tr>
+                            <td>Game session state (games in progress)</td>
+                            <td>In-memory only, lost on bot restart</td>
+                        </tr>
+                        <tr>
+                            <td>Presence/activity data</td>
+                            <td>Not stored — read transiently only</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <hr>
+
+            <h2>4. Third-Party Data Sharing</h2>
+            <p>DabbleBot sends data to the following third-party services:</p>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Data Sent</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sightengine API</td>
+                            <td>Message text and images</td>
+                            <td>Automated content moderation (NSFW/profanity detection)</td>
+                        </tr>
+                        <tr>
+                            <td>Google Perspective API</td>
+                            <td>Message text (with <code>doNotStore: true</code>)</td>
+                            <td>Toxicity scoring for anti-spam</td>
+                        </tr>
+                        <tr>
+                            <td>Sentry.io</td>
+                            <td>Error metadata and command tracebacks (no message content)</td>
+                            <td>Error tracking and debugging</td>
+                        </tr>
+                        <tr>
+                            <td>Open Trivia Database</td>
+                            <td>No user data sent (IP address visible to API)</td>
+                            <td>Trivia question sourcing</td>
+                        </tr>
+                        <tr>
+                            <td>Mojang API</td>
+                            <td>Minecraft playername (user-provided, not Discord data)</td>
+                            <td>Minecraft rank lookup</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p><strong>No user data is sold, shared with advertisers, or used for commercial purposes.</strong></p>
+
+            <hr>
+
+            <h2>5. Machine Learning and AI Training</h2>
+            <p>DabbleBot does <strong>not</strong> train any machine learning or AI models on user data. Third-party
+                content moderation APIs (Sightengine, Google Perspective) are used for inference only — analyzing
+                messages for safety purposes. Message content sent to these services is not used to train models owned
+                or operated by DabbleBot.</p>
+
+            <hr>
+
+            <h2>6. User Rights and Data Deletion</h2>
+
+            <h3>6.1 Requesting Your Data</h3>
+            <p>Users may request a copy of all data DabbleBot stores about them by contacting the bot owner. The bot
+                supports data export for features that implement the data retrieval interface.</p>
+
+            <h3>6.2 Deleting Your Data</h3>
+            <p>Users may request deletion of their data by:</p>
+            <ol>
+                <li>Using the <code>d/mydata</code> command to initiate the bot's automated data deletion process</li>
+                <li>Using Discord's "Request my data" workflow, which triggers the bot's automated data deletion process
+                </li>
+                <li>Contacting the bot administrators directly using the <code>d/contact</code> command or through the
+                    support channels provided in the bot's help command</li>
+            </ol>
+            <p>The bot's data deletion process removes user data from most features, including: warning records, economy
+                balances, game statistics, casino stats, heist data, reminders, timezone preferences, and server
+                statistics entries.</p>
+            <p><strong>Known limitations:</strong> Some features do not fully implement automated data deletion. If you
+                request data deletion, the following data may require manual removal by the bot owner:</p>
+            <ul>
+                <li>Sticky role assignments</li>
+                <li>Time-based role state entries</li>
+                <li>Server backup snapshots (member IDs embedded in backup JSON)</li>
+                <li>Chess game scoreboard entries</li>
+                <li>Loot drop statistics</li>
+            </ul>
+            <p>If you request data deletion, please mention these specific areas if you want them purged.</p>
+
+            <h3>6.3 Opt-Out</h3>
+            <p>Users cannot individually opt out of data collection features. Server administrators can disable any cog
+                to stop all data collection for that feature. Users may leave the server to stop all data collection by
+                DabbleBot.</p>
+
+            <hr>
+
+            <h2>7. Server Administrator Responsibilities</h2>
+            <p>Server administrators who add DabbleBot to their server are responsible for:</p>
+            <ul>
+                <li>Informing their server members that DabbleBot is present and what data it collects</li>
+                <li>Configuring which features are enabled (disabling cogs that are not needed)</li>
+                <li>Ensuring compliance with any applicable local privacy regulations (e.g., GDPR, CCPA)</li>
+                <li>Removing the bot from the server if data collection practices are no longer acceptable</li>
+            </ul>
+
+            <hr>
+
+            <h2>8. Data Security</h2>
+            <p>DabbleBot is hosted on a VPS with:</p>
+            <ul>
+                <li>SSH key-only authentication (no password access)</li>
+                <li>Restrictive filesystem permissions on all data directories</li>
+                <li>Regular security updates applied to the host operating system</li>
+                <li>Anti-DDoS protection on all network traffic</li>
+                <li>Firewall configured to block all unnecessary ports</li>
+                <li>Regular security audits conducted by Lynis on the system</li>
+                <li>File Integrity Monitoring on all critical files</li>
+                <li>Fail2Ban to prevent brute-force attacks</li>
+            </ul>
+            <p>All user data is encrypted at rest using filesystem-level encryption as detailed in Section 2.</p>
+
+            <hr>
+
+            <h2>9. Changes to This Policy</h2>
+            <p>We may update this Privacy Policy as features are added, modified, or removed. Server administrators will
+                be notified of material changes through the bot's update notification system.</p>
+
+            <hr>
+
+            <h2>10. Contact</h2>
+            <p>For data requests, privacy concerns, or questions about this policy, please contact the bot owner through
+                the support channels provided in the bot's help command or server.</p>
+
+            <hr>
+
+            <p><em>DabbleBot is not affiliated with, endorsed by, or sponsored by Discord. Discord is a trademark of
+                    Discord Inc.</em></p>
+        </div>
+    </div>
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/5c55ca696cb1ff3c14cadcaa/default';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+</body>
+<footer>
+    <p>All Images and content are copyright of their respective owners.</p>
+</footer>
+
+</html>
