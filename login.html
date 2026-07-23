@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#008204"/>
+    <link href="assets/css/styles.css" rel="stylesheet" type="text/css">
+    <script src="assets/javascript/login.js"></script>
+    <title>Home</title>
+</head>
+<body>
+<!-- Navigation -->
+    <header class="nav"><a href="index.html" class="logo"><img src="assets/images/Logo.png" height="77" width="122" alt="Dabblecrat Logo"></a>
+    <input class="menu-btn" type="checkbox" id="menu-btn" aria-label="Main Nav"/>
+    <label class="menu-icon" for="menu-btn"><span class="navicon" tabindex="0"></span></label>
+    <ul class="menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="media.html">Dabblecraft Media</a></li>
+        <li><a href="communities.html">Communities</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a class="current" href="login.html">Login</a></li>
+    </ul>
+
+
+</header>
+
+    <div class="login-class">
+        <div class="login-login">
+            <div id="login">
+                <form id="form_id" method="post" name="myform">
+                    <h1>Login</h1>
+                    <h2>Email</h2>
+                    <input type="text" name="username" id="username" class="textbox"/>
+                    <h2>Password</h2>
+                    <input type="password" name="password" id="password" class="textbox"/>
+                    <input type="button" value="Enter" id="submit" onclick="validate()"/>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<!-- Disable Nodes Until fix is implemented for it to appear behind a div
+<script src="assets/javascript/dots.js"> </script>
+-->
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/5c55ca696cb1ff3c14cadcaa/default';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+    })();
+</script>
+<!--End of Tawk.to Script-->
+</body>
+<footer>
+    <p>All Images and content are copyright of their respective owners.</p>
+</footer>
+</html>

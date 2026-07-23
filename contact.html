@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#008204"/>
+    <link href="assets/css/styles.css" rel="stylesheet" type="text/css">
+    <title>Home</title>
+</head>
+<body>
+<!-- Navigation -->
+    <header class="nav"><a href="index.html" class="logo"><img src="assets/images/Logo.png" height="77" width="122" alt="Dabblecrat Logo"></a>
+    <input class="menu-btn" type="checkbox" id="menu-btn" aria-label="Main Nav"/>
+    <label class="menu-icon" for="menu-btn"><span class="navicon" tabindex="0"></span></label>
+    <ul class="menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="media.html">Dabblecraft Media</a></li>
+        <li><a href="communities.html">Communities</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a class="current" href="contact.html">Contact Us</a></li>
+        <li><a href="login.html">Login</a></li>
+    </ul>
+
+
+</header>
+
+<div class="contact-class">
+    <div class="contact-contact">
+        <h1 class="contact-h1">Contact us</h1>
+        <div class="contact-us">
+        <form id="fcf-form-id" class="fcf-form-class" method="post" action="assets/PHP/form.php">
+            <label for="Name" class="fcf-label">Your name</label>
+            <div class="fcf-input-group">
+                <input type="text" id="Name" name="Name" class="fcf-form-control" required>
+            </div>
+            <div class="fcf-form-group">
+                <label for="Email" class="fcf-label">Your email address</label>
+                <div class="fcf-input-group">
+                    <input type="email" id="Email" name="Email" class="fcf-form-control" required>
+                </div>
+                <div class="fcf-form-group">
+                    <label for="Message" class="fcf-label">Your message</label>
+                    <div class="fcf-input-group">
+                        <textarea id="Message" name="Message" class="fcf-form-control" rows="6" maxlength="3000" required></textarea>
+                    </div>
+                </div>
+                <label class="privacy-label" for="privacy">Agree to privacy policy &nbsp<a class="click" href="privacy.html">Click Here</a></label><br>
+                <input type="checkbox" id="privacy" name="privacy-class" value="privacy-value">
+                <div class="fcf-form-group">
+                    <button type="submit" id="fcf-button" class="fcf-btn fcf-btn-primary fcf-btn-lg fcf-btn-block">Send</button>
+                </div>
+        </div>
+        </form>
+        </div>
+    </div>
+</div>
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/5c55ca696cb1ff3c14cadcaa/default';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+    })();
+</script>
+<!--End of Tawk.to Script-->
+</body>
+<footer>
+    <p>All Images and content are copyright of their respective owners.</p>
+</footer>
+</html>
