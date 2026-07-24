@@ -54,7 +54,7 @@ DabbleBot may read message content for the following purposes:
 
 All data is stored on the server hosting DabbleBot (a dedicated Virtual Private Server). Data is persisted as JSON files under a restricted data directory. Some features additionally use SQLite databases for larger datasets.
 
-**Encryption:** All user data is encrypted at rest using filesystem-level encryption (fscrypt with AES-256-XTS). The encryption keys are managed by the operating system kernel and are unlocked automatically at system boot via a secure keyfile, ensuring that all stored data remains encrypted while the server is offline or the disk is accessed without system authorization.
+**Encryption:** All user data is encrypted at rest using filesystem-level encryption (fscrypt with AES-256-XTS). The encryption keys are managed by the operating system kernel's keystore.
 
 ---
 
@@ -136,13 +136,17 @@ Server administrators who add DabbleBot to their server are responsible for:
 
 ## 8. Data Security
 
-DabbleBot is hosted on a dedicated VPS with:
+DabbleBot is hosted on a VPS with:
 - SSH key-only authentication (no password access)
 - Restrictive filesystem permissions on all data directories
-- No shared hosting or multi-tenant infrastructure
 - Regular security updates applied to the host operating system
+- Anti-DDoS protection on all network traffic
+- Firewall configured to block all unnecessary ports
+- Regular security audits conducted by Lynis on the system
+- File Integrity Monitoring on all critical files
+- Fail2Ban to prevent brute-force attacks
 
-We do not currently encrypt data at rest but are working toward implementing filesystem-level encryption.
+All user data is encrypted at rest using filesystem-level encryption as detailed in Section 2.
 
 ---
 

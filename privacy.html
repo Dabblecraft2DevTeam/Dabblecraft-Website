@@ -109,9 +109,7 @@
             <p>All data is stored on the server hosting DabbleBot (a dedicated Virtual Private Server). Data is
                 persisted as JSON files under a restricted data directory. Some features additionally use SQLite
                 databases for larger datasets.</p>
-            <p><strong>Encryption:</strong> All user data is encrypted at rest using filesystem-level encryption
-                (fscrypt with AES-256-XTS). The encryption keys are managed by the operating system kernel's keystore.
-            </p>
+            <p><strong>Encryption:</strong> All user data is encrypted at rest using filesystem-level encryption (fscrypt with AES-256-XTS). The encryption keys are managed by the operating system kernel's keystore.</p>
 
             <hr>
 
@@ -164,10 +162,6 @@
                         <tr>
                             <td>Anti-spam message cache</td>
                             <td>In-memory only, maximum 48 hours or 3,000 messages</td>
-                        </tr>
-                        <tr>
-                            <td>Server backups (Cartographer)</td>
-                            <td>Capped at admin-configured maximum backups per server</td>
                         </tr>
                         <tr>
                             <td>Game session state (games in progress)</td>
@@ -244,22 +238,14 @@
             <h3>6.2 Deleting Your Data</h3>
             <p>Users may request deletion of their data by:</p>
             <ol>
-                <li>Using the <code>d/mydata</code> command to initiate the bot's automated data deletion process</li>
-                <li>Using Discord's "Request my data" workflow, which triggers the bot's automated data deletion process
-                </li>
-                <li>Contacting the bot administrators directly using the <code>d/contact</code> command or through the
-                    support channels provided in the bot's help command</li>
+                <li>Using Discord's "Request my data" workflow, which triggers the bot's automated data deletion process</li>
+                <li>Contacting the bot owner directly through the support channels provided in the bot's help command</li>
             </ol>
-            <p>The bot's data deletion process removes user data from most features, including: warning records, economy
-                balances, game statistics, casino stats, heist data, reminders, timezone preferences, and server
-                statistics entries.</p>
-            <p><strong>Known limitations:</strong> Some features do not fully implement automated data deletion. If you
-                request data deletion, the following data may require manual removal by the bot owner:</p>
+            <p>The bot's data deletion process removes user data from most features, including: warning records, economy balances, game statistics, casino stats, heist data, reminders, timezone preferences, server statistics entries, leveling XP/bio/cosmetics (Leveler), captcha verification records (CaptchaGate), Minecraft rank data (NBZHCRank), and quote game data (QuoteGame).</p>
+            <p><strong>Known limitations:</strong> Some features do not fully implement automated data deletion. If you request data deletion, the following data may require manual removal by the bot owner:</p>
             <ul>
                 <li>Sticky role assignments</li>
                 <li>Time-based role state entries</li>
-                <li>Server backup snapshots (member IDs embedded in backup JSON)</li>
-                <li>Chess game scoreboard entries</li>
                 <li>Loot drop statistics</li>
             </ul>
             <p>If you request data deletion, please mention these specific areas if you want them purged.</p>
