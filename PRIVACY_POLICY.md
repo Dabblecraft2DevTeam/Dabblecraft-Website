@@ -31,7 +31,7 @@ Presence data is read transiently and is **not stored** off-platform.
 ### 1.3 Message Content Intent Data
 DabbleBot may read message content for the following purposes:
 - **Content Moderation (Scanner):** Message text and images are sent to the Sightengine API for automated NSFW/profanity detection. No data is stored locally.
-- **Anti-Spam (Defender):** Message content is cached in RAM (maximum 3,000 messages or 48 hours) for spam pattern detection. Content is sent to Google Perspective API with the `doNotStore: true` flag for toxicity scoring. No message content is written to disk.
+- **Anti-Spam (Defender):** Message content is cached in RAM (maximum 3,000 messages or 48 hours) for spam pattern detection. No message content is written to disk.
 - **Moderation Logging:** When messages are edited or deleted, before/after content is posted to designated moderation log channels on Discord.
 - **Warning System Automod:** Message content is read transiently in memory for anti-spam detection and regex-based content rules. Not persisted to disk.
 - **Anti-Scam (StopNitroScams):** Messages are scanned for known scam patterns using a transient in-memory heuristic. No message content is stored.
@@ -85,7 +85,6 @@ DabbleBot sends data to the following third-party services:
 | Service | Data Sent | Purpose |
 |---------|-----------|---------|
 | Sightengine API | Message text and images | Automated content moderation (NSFW/profanity detection) |
-| Google Perspective API | Message text (with `doNotStore: true`) | Toxicity scoring for anti-spam |
 | Sentry.io | Error metadata and command tracebacks (no message content) | Error tracking and debugging |
 | Open Trivia Database | No user data sent (IP address visible to API) | Trivia question sourcing |
 | Mojang API | Minecraft playername (user-provided, not Discord data) | Minecraft rank lookup |
@@ -96,7 +95,7 @@ DabbleBot sends data to the following third-party services:
 
 ## 5. Machine Learning and AI Training
 
-DabbleBot does **not** train any machine learning or AI models on user data. Third-party content moderation APIs (Sightengine, Google Perspective) are used for inference only — analyzing messages for safety purposes. Message content sent to these services is not used to train models owned or operated by DabbleBot.
+DabbleBot does **not** train any machine learning or AI models on user data. Third-party content moderation APIs (Sightengine) are used for inference only — analyzing messages for safety purposes. Message content sent to these services is not used to train models owned or operated by DabbleBot.
 
 ---
 

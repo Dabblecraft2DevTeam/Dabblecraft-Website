@@ -69,8 +69,7 @@
                 <li><strong>Content Moderation (Scanner):</strong> Message text and images are sent to the Sightengine
                     API for automated NSFW/profanity detection. No data is stored locally.</li>
                 <li><strong>Anti-Spam (Defender):</strong> Message content is cached in RAM (maximum 3,000 messages or
-                    48 hours) for spam pattern detection. Content is sent to Google Perspective API with the
-                    <code>doNotStore: true</code> flag for toxicity scoring. No message content is written to disk.
+                    48 hours) for spam pattern detection. No message content is written to disk.
                 </li>
                 <li><strong>Moderation Logging:</strong> When messages are edited or deleted, before/after content is
                     posted to designated moderation log channels on Discord.</li>
@@ -196,11 +195,6 @@
                             <td>Automated content moderation (NSFW/profanity detection)</td>
                         </tr>
                         <tr>
-                            <td>Google Perspective API</td>
-                            <td>Message text (with <code>doNotStore: true</code>)</td>
-                            <td>Toxicity scoring for anti-spam</td>
-                        </tr>
-                        <tr>
                             <td>Sentry.io</td>
                             <td>Error metadata and command tracebacks (no message content)</td>
                             <td>Error tracking and debugging</td>
@@ -224,7 +218,7 @@
 
             <h2>5. Machine Learning and AI Training</h2>
             <p>DabbleBot does <strong>not</strong> train any machine learning or AI models on user data. Third-party
-                content moderation APIs (Sightengine, Google Perspective) are used for inference only — analyzing
+                content moderation APIs (Sightengine) are used for inference only — analyzing
                 messages for safety purposes. Message content sent to these services is not used to train models owned
                 or operated by DabbleBot.</p>
 
