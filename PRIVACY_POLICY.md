@@ -54,7 +54,7 @@ DabbleBot may read message content for the following purposes:
 
 All data is stored on the server hosting DabbleBot (a dedicated Virtual Private Server). Data is persisted as JSON files under a restricted data directory. Some features additionally use SQLite databases for larger datasets.
 
-**Encryption:** All user data is encrypted at rest using filesystem-level encryption (fscrypt with AES-256-XTS). The encryption keys are managed by the operating system kernel's keystore.
+**Encryption:** All user data is encrypted at rest using filesystem-level encryption (fscrypt with AES-256-XTS). The encryption keys are managed by the operating system kernel and are unlocked automatically at system boot via a secure keyfile, ensuring that all stored data remains encrypted while the server is offline or the disk is accessed without system authorization.
 
 ---
 
@@ -72,7 +72,7 @@ All data is stored on the server hosting DabbleBot (a dedicated Virtual Private 
 | Sticky role assignments | Until manually cleared or via data deletion request |
 | CAPTCHA verification state | In-memory only, cleared on completion/timeout |
 | Anti-spam message cache | In-memory only, maximum 48 hours or 3,000 messages |
-| Server backups (Cartographer) | Capped at admin-configured maximum backups per server |
+
 | Game session state (games in progress) | In-memory only, lost on bot restart |
 | Presence/activity data | Not stored — read transiently only |
 
@@ -107,18 +107,14 @@ Users may request a copy of all data DabbleBot stores about them by contacting t
 
 ### 6.2 Deleting Your Data
 Users may request deletion of their data by:
-1. Using the `d/mydata` command to initiate the bot's automated data deletion process
-2. Using Discord's "Request my data" workflow, which triggers the bot's automated data deletion process
-3. Contacting the bot administrators directly using the `d/contact` command or through the support channels provided in the bot's help command
+1. Using Discord's "Request my data" workflow, which triggers the bot's automated data deletion process
+2. Contacting the bot owner directly through the support channels provided in the bot's help command
 
-The bot's data deletion process removes user data from most features, including: warning records, economy balances, game statistics, casino stats, heist data, reminders, timezone preferences, and server statistics entries.
+The bot's data deletion process removes user data from most features, including: warning records, economy balances, game statistics, casino stats, heist data, reminders, timezone preferences, server statistics entries, leveling XP/bio/cosmetics (Leveler), captcha verification records (CaptchaGate), Minecraft rank data (NBZHCRank), and quote game data (QuoteGame).
 
 **Known limitations:** Some features do not fully implement automated data deletion. If you request data deletion, the following data may require manual removal by the bot owner:
-- Leveling XP, bio, and cosmetic data (SQLite)
 - Sticky role assignments
 - Time-based role state entries
-- Server backup snapshots (member IDs embedded in backup JSON)
-- Chess game scoreboard entries
 - Loot drop statistics
 
 If you request data deletion, please mention these specific areas if you want them purged.
@@ -143,10 +139,10 @@ Server administrators who add DabbleBot to their server are responsible for:
 DabbleBot is hosted on a dedicated VPS with:
 - SSH key-only authentication (no password access)
 - Restrictive filesystem permissions on all data directories
-- Cloud infrastructure via OVH (rather than traditional shared hosting)
+- No shared hosting or multi-tenant infrastructure
 - Regular security updates applied to the host operating system
 
-All user data is encrypted at rest using filesystem-level encryption as detailed in Section 2.
+We do not currently encrypt data at rest but are working toward implementing filesystem-level encryption.
 
 ---
 
