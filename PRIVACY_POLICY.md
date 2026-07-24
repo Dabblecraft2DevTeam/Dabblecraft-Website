@@ -107,8 +107,9 @@ Users may request a copy of all data DabbleBot stores about them by contacting t
 
 ### 6.2 Deleting Your Data
 Users may request deletion of their data by:
-1. Using Discord's "Request my data" workflow, which triggers the bot's automated data deletion process
-2. Contacting the bot owner directly through the support channels provided in the bot's help command
+1. Using the `d/mydata` command to initiate the bot's automated data deletion process
+2. Using Discord's "Data deletion request" workflow, which triggers the bot's automated data deletion process
+3. Contacting the bot administrators directly using the `d/contact` command or through the support channels provided in the bot's help command
 
 The bot's data deletion process removes user data from most features, including: warning records, economy balances, game statistics, casino stats, heist data, reminders, timezone preferences, server statistics entries, leveling XP/bio/cosmetics (Leveler), captcha verification records (CaptchaGate), Minecraft rank data (NBZHCRank), and quote game data (QuoteGame).
 
