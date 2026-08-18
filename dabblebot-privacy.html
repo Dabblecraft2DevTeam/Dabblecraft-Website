@@ -82,10 +82,8 @@
                 <li><strong>Reminders, Suggestions, and Reports:</strong> User-initiated text content (reminder text,
                     suggestion text, report text) is stored until the reminder fires, the suggestion is resolved, or the
                     report is manually deleted by an admin.</li>
-                <li><strong>Command Statistics:</strong> Only command names are counted. Message content is not stored.
-                </li>
                 <li><strong>Quote Game:</strong> Single-word answers from players are recorded and the original message
-                    is deleted.</li>
+                    is deleted. Stored until game ends or data deletion is requested.</li>
                 <li><strong>Ticket Transcripts:</strong> When a ticket is closed, the bot can optionally export a
                     transcript to a Discord channel (on-platform).</li>
             </ul>
@@ -109,7 +107,9 @@
             <p>All data is stored on the server hosting DabbleBot (a dedicated Virtual Private Server). Data is
                 persisted as JSON files under a restricted data directory. Some features additionally use SQLite
                 databases for larger datasets.</p>
-            <p><strong>Encryption:</strong> All user data is encrypted at rest using filesystem-level encryption (fscrypt with AES-256-XTS). The encryption keys are managed by the operating system kernel's keystore.</p>
+            <p><strong>Encryption:</strong> All user data is encrypted at rest using filesystem-level encryption
+                (fscrypt with AES-256-XTS). The encryption keys are managed by the operating system kernel's keystore.
+            </p>
 
             <hr>
 
@@ -221,6 +221,8 @@
                 content moderation APIs (Sightengine) are used for inference only — analyzing
                 messages for safety purposes. Message content sent to these services is not used to train models owned
                 or operated by DabbleBot.</p>
+            <p>Each server owner needs to provide their own Sightengine API key to use the content moderation feature.
+            </p>
 
             <hr>
 
@@ -234,11 +236,17 @@
             <p>Users may request deletion of their data by:</p>
             <ol>
                 <li>Using the <code>d/mydata</code> command to initiate the bot's automated data deletion process</li>
-                <li>Using Discord's "Data deletion request" workflow, which triggers the bot's automated data deletion process</li>
-                <li>Contacting the bot administrators directly using the <code>d/contact</code> command or through the support channels provided in the bot's help command</li>
+                <li>Using Discord's "Data deletion request" workflow, which triggers the bot's automated data deletion
+                    process</li>
+                <li>Contacting the bot administrators directly using the <code>d/contact</code> command or through the
+                    support channels provided in the bot's help command</li>
             </ol>
-            <p>The bot's data deletion process removes user data from most features, including: warning records, economy balances, game statistics, casino stats, heist data, reminders, timezone preferences, server statistics entries, leveling XP/bio/cosmetics (Leveler), captcha verification records (CaptchaGate), Minecraft rank data (NBZHCRank), and quote game data (QuoteGame).</p>
-            <p><strong>Known limitations:</strong> Some features do not fully implement automated data deletion. If you request data deletion, the following data may require manual removal by the bot owner:</p>
+            <p>The bot's data deletion process removes user data from most features, including: warning records, economy
+                balances, game statistics, casino stats, heist data, reminders, timezone preferences, server statistics
+                entries, leveling XP/bio/cosmetics (Leveler), captcha verification records (CaptchaGate), Minecraft rank
+                data (NBZHCRank), and quote game data (QuoteGame).</p>
+            <p><strong>Known limitations:</strong> Some features do not fully implement automated data deletion. If you
+                request data deletion, the following data may require manual removal by the bot owner:</p>
             <ul>
                 <li>Sticky role assignments</li>
                 <li>Time-based role state entries</li>
