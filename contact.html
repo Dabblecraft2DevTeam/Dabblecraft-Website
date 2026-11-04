@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#008204"/>
     <link href="assets/css/styles.css" rel="stylesheet" type="text/css">
-    <title>Home</title>
+    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+    <title>Contact Us - Dabblecraft</title>
 </head>
 <body>
 <!-- Navigation -->
-    <header class="nav"><a href="index.html" class="logo"><img src="assets/images/Logo.png" height="77" width="122" alt="Dabblecrat Logo"></a>
+    <header class="nav"><a href="index.html" class="logo"><img src="assets/images/logo.webp" height="77" width="122" alt="Dabblecraft Logo"></a>
     <input class="menu-btn" type="checkbox" id="menu-btn" aria-label="Main Nav"/>
     <label class="menu-icon" for="menu-btn"><span class="navicon" tabindex="0"></span></label>
     <ul class="menu">
@@ -25,32 +26,36 @@
 
 </header>
 
+<canvas id="starfield-canvas" aria-hidden="true"></canvas>
+<script src="assets/javascript/starfield.js"></script>
+
 <div class="contact-class">
     <div class="contact-contact">
         <h1 class="contact-h1">Contact us</h1>
         <div class="contact-us">
         <form id="fcf-form-id" class="fcf-form-class" method="post" action="assets/PHP/form.php">
-            <label for="Name" class="fcf-label">Your name</label>
-            <div class="fcf-input-group">
-                <input type="text" id="Name" name="Name" class="fcf-form-control" required>
+            <div class="fcf-form-group">
+                <label for="Name" class="fcf-label">Your name</label>
+                <input type="text" id="Name" name="Name" class="fcf-form-control" autocomplete="name" required>
             </div>
             <div class="fcf-form-group">
                 <label for="Email" class="fcf-label">Your email address</label>
-                <div class="fcf-input-group">
-                    <input type="email" id="Email" name="Email" class="fcf-form-control" required>
-                </div>
-                <div class="fcf-form-group">
-                    <label for="Message" class="fcf-label">Your message</label>
-                    <div class="fcf-input-group">
-                        <textarea id="Message" name="Message" class="fcf-form-control" rows="6" maxlength="3000" required></textarea>
-                    </div>
-                </div>
-                <label class="privacy-label" for="privacy">Agree to privacy policy &nbsp<a class="click" href="privacy.html">Click Here</a></label><br>
-                <input type="checkbox" id="privacy" name="privacy-class" value="privacy-value">
-                <div class="fcf-form-group">
-                    <button type="submit" id="fcf-button" class="fcf-btn fcf-btn-primary fcf-btn-lg fcf-btn-block">Send</button>
-                </div>
-        </div>
+                <input type="email" id="Email" name="Email" class="fcf-form-control" autocomplete="email" required>
+            </div>
+            <div class="fcf-form-group">
+                <label for="Message" class="fcf-label">Your message</label>
+                <textarea id="Message" name="Message" class="fcf-form-control fcf-textarea" rows="6" maxlength="3000" required></textarea>
+            </div>
+            <div class="fcf-form-group privacy-row">
+                <input type="checkbox" id="privacy" name="privacy-class" value="privacy-value" required>
+                <label class="privacy-label" for="privacy">Agree to privacy policy <a class="click" href="privacy.html">Click Here</a></label>
+            </div>
+            <div class="fcf-form-group">
+                <div class="h-captcha" data-theme="dark" data-size="compact"></div>
+            </div>
+            <div class="fcf-form-group">
+                <button type="submit" id="fcf-button" class="fcf-btn fcf-btn-primary fcf-btn-lg fcf-btn-block">Send</button>
+            </div>
         </form>
         </div>
     </div>

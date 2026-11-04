@@ -282,7 +282,9 @@ form {
     margin-top: 5em;
 }
 
-form input, button {
+/* Login page inputs (the old global "form input" rule caused checkbox
+   misalignment on the contact form; scope text inputs to the login box) */
+#login input, #login button {
     width: 100%;
     height: 30px;
     margin-bottom: 2em;
@@ -359,6 +361,17 @@ canvas {
 
 }
 
+/* Starfield background (login + contact pages) */
+#starfield-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+}
+
 /* Contact Us */
 .contact-class {
     display: flex;
@@ -381,14 +394,11 @@ canvas {
 }
 
 .contact-contact form {
-    width: 270px;
-    margin-top: 1em;
-}
-
-.contact-contact form input {
     width: 100%;
-    height: 30px;
-    margin-bottom: 2em;
+    max-width: 440px;
+    margin: 1em auto 0 auto;
+    padding: 0 24px;
+    box-sizing: border-box;
 }
 
 label {
@@ -397,12 +407,88 @@ label {
     margin-bottom: 0.8em;
     color: #d0d0d0;
     font-family: 'Inter', sans-serif;
+    display: block;
+}
+
+/* Modern form controls */
+.fcf-form-group {
+    margin-bottom: 1.4em;
 }
 
 .fcf-form-control {
     font-size: 1em;
     font-weight: 100;
+    font-family: 'Inter', sans-serif;
     position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #262626;
+    color: #f0f0f0;
+    border: 1px solid #4a4a4a;
+    border-radius: 8px;
+    padding: 12px 14px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.fcf-form-control:hover {
+    border-color: #6a6a6a;
+}
+
+.fcf-form-control:focus {
+    border-color: #008204;
+    box-shadow: 0 0 0 3px rgba(0, 130, 4, 0.25);
+    background-color: #2a2a2a;
+}
+
+.fcf-form-control::placeholder {
+    color: #7a7a7a;
+}
+
+.fcf-textarea {
+    resize: vertical;
+    min-height: 130px;
+    line-height: 1.5;
+}
+
+/* Privacy checkbox row */
+.privacy-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.privacy-row input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    accent-color: #008204;
+    cursor: pointer;
+    margin: 0;
+}
+
+.privacy-row .privacy-label {
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+/* hCaptcha container — keep it aligned with the form column */
+.h-captcha {
+    margin-bottom: 0.4em;
+}
+
+/* In-content links (e.g. the "Click Here" privacy link) — the browser
+   default unvisited-blue is unreadable on the dark background */
+.privacy-label a,
+.contact-us a {
+    color: #6fdd8f;
+}
+
+.privacy-label a:hover,
+.contact-us a:hover {
+    color: #98fb98;
 }
 
 button, submit {
@@ -412,25 +498,34 @@ button, submit {
 }
 
 button, .fcf-button {
-    height: 40px;
+    height: 44px;
     display: block;
     background-color: #008204;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     color: white;
-    font-size: 1.2em;
+    font-size: 1.1em;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    padding: 0 3px;
+    padding: 0 12px;
     font-family: 'Inter', sans-serif;
-    font-weight: 100;
-    transition: all 0.2s ease;
+    font-weight: 400;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 }
 
 button:hover, .fcf-button:hover {
     background-color: #006603;
-    padding: 3px;
-    height: 50px;
+    box-shadow: 0 0 12px rgba(0, 130, 4, 0.5);
+}
+
+button:active, .fcf-button:active {
+    transform: scale(0.98);
+}
+
+button:focus-visible, .fcf-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 130, 4, 0.4);
 }
 
 @media screen and (min-width: 1000px) {
@@ -444,9 +539,10 @@ button:hover, .fcf-button:hover {
     }
 
     .contact-us {
-        width: 60%;
-        padding-top: 1%;
-        padding-left: 33%;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0;
     }
 
     body {
@@ -465,9 +561,7 @@ button:hover, .fcf-button:hover {
     padding-top: 2%
 }
 
-#privacy {
-    margin-bottom: 2em;
-}
+/* #privacy margin rule removed — the .privacy-row flex layout handles spacing */
 
 .fcf-input-group {
     margin-bottom: 2em;
@@ -739,4 +833,4 @@ footer {
         grid-template-columns: 100%;
         padding: 5%;
     }
-}
+}
