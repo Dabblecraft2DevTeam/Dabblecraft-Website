@@ -6,11 +6,11 @@
     <meta name="theme-color" content="#008204"/>
     <link href="assets/css/styles.css" rel="stylesheet" type="text/css">
     <script src="assets/javascript/login.js"></script>
-    <title>Home</title>
+    <title>Login - Dabblecraft</title>
 </head>
 <body>
 <!-- Navigation -->
-    <header class="nav"><a href="index.html" class="logo"><img src="assets/images/Logo.png" height="77" width="122" alt="Dabblecrat Logo"></a>
+    <header class="nav"><a href="index.html" class="logo"><img src="assets/images/logo.webp" height="77" width="122" alt="Dabblecraft Logo"></a>
     <input class="menu-btn" type="checkbox" id="menu-btn" aria-label="Main Nav"/>
     <label class="menu-icon" for="menu-btn"><span class="navicon" tabindex="0"></span></label>
     <ul class="menu">
@@ -26,6 +26,9 @@
 
 </header>
 
+<canvas id="starfield-canvas" aria-hidden="true"></canvas>
+<script src="assets/javascript/starfield.js"></script>
+
     <div class="login-class">
         <div class="login-login">
             <div id="login">
@@ -40,10 +43,6 @@
             </div>
         </div>
     </div>
-
-<!-- Disable Nodes Until fix is implemented for it to appear behind a div
-<script src="assets/javascript/dots.js"> </script>
--->
 
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">
