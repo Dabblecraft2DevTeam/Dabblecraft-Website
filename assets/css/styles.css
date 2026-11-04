@@ -282,7 +282,9 @@ form {
     margin-top: 5em;
 }
 
-form input, button {
+/* Login page inputs (the old global "form input" rule caused checkbox
+   misalignment on the contact form; scope text inputs to the login box) */
+#login input, #login button {
     width: 100%;
     height: 30px;
     margin-bottom: 2em;
@@ -477,6 +479,18 @@ label {
     margin-bottom: 0.4em;
 }
 
+/* In-content links (e.g. the "Click Here" privacy link) — the browser
+   default unvisited-blue is unreadable on the dark background */
+.privacy-label a,
+.contact-us a {
+    color: #6fdd8f;
+}
+
+.privacy-label a:hover,
+.contact-us a:hover {
+    color: #98fb98;
+}
+
 button, submit {
     width: 100%;
     height: 30px;
@@ -547,9 +561,7 @@ button:focus-visible, .fcf-button:focus-visible {
     padding-top: 2%
 }
 
-#privacy {
-    margin-bottom: 2em;
-}
+/* #privacy margin rule removed — the .privacy-row flex layout handles spacing */
 
 .fcf-input-group {
     margin-bottom: 2em;
