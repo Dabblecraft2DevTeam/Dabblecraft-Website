@@ -237,6 +237,12 @@ body {
         flex-direction: column;
         grid-template-columns: 100%;
         padding: 5%;
+        padding-top: 8%;
+    }
+
+    .about-main {
+        height: auto;
+        min-height: 0;
     }
 }
 
@@ -561,6 +567,22 @@ button:focus-visible, .fcf-button:focus-visible {
     padding-top: 2%
 }
 
+/* Mobile: match the home page pattern — 5% padding, auto height so the
+   container fits its content instead of a fixed 800px */
+@media only screen and (max-width: 800px) {
+    .contact-class {
+        display: flex;
+        flex-direction: column;
+        padding: 5%;
+        padding-top: 8%;
+    }
+
+    .contact-contact {
+        height: auto;
+        min-height: 0;
+    }
+}
+
 /* #privacy margin rule removed — the .privacy-row flex layout handles spacing */
 
 .fcf-input-group {
@@ -684,9 +706,17 @@ button:focus-visible, .fcf-button:focus-visible {
         flex-direction: column;
         grid-template-columns: 100%;
         padding: 5%;
+        padding-top: 8%;
     }
+
+    .communities-main {
+        height: auto;
+        min-height: 0;
+    }
+
     .communities-main iframe {
-        padding-left: 1%;
+        padding-left: 0;
+        width: 100%;
     }
 }
 
