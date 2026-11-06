@@ -479,16 +479,23 @@ label {
     margin-bottom: 0.4em;
 }
 
-/* In-content links (e.g. the "Click Here" privacy link) — the browser
-   default unvisited-blue is unreadable on the dark background */
+/* In-content links (privacy policy body, contact form text, etc.) — the
+   browser default unvisited-blue is unreadable on the dark background */
 .privacy-label a,
-.contact-us a {
+.contact-us a,
+.privacy-main a {
     color: #6fdd8f;
+    text-decoration: underline;
 }
 
 .privacy-label a:hover,
-.contact-us a:hover {
+.contact-us a:hover,
+.privacy-main a:hover {
     color: #98fb98;
+}
+
+.privacy-main a {
+    word-break: break-all;
 }
 
 button, submit {
