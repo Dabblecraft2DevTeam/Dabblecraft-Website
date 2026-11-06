@@ -745,9 +745,127 @@ button:focus-visible, .fcf-button:focus-visible {
 /* Footer */
 footer {
     text-align: left;
-    margin: 20px;
+    margin: 0;
+    padding: 30px 5%;
+    background: #1e1e1e;
+    border-top: 1px solid #333333;
     color: #d0d0d0;
     font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-brand {
+    flex-shrink: 0;
+}
+
+.footer-logo img {
+    display: block;
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 40px;
+}
+
+.footer-links ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 6px;
+}
+
+.footer-links a {
+    color: #d0d0d0;
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: #98fb98;
+}
+
+.footer-social {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.footer-social a {
+    color: #8a8a8a;
+    display: inline-flex;
+    padding: 6px;
+    border-radius: 6px;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.footer-social a:hover {
+    color: #98fb98;
+    background-color: #2a2a2a;
+}
+
+.footer-social .footer-social-placeholder {
+    opacity: 0.35;
+    cursor: default;
+}
+
+.footer-social .footer-social-placeholder:hover {
+    color: #8a8a8a;
+    background-color: transparent;
+}
+
+.footer-bottom {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #333333;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.footer-bottom p {
+    margin: 0;
+    font-size: 0.8em;
+    color: #8a8a8a;
+}
+
+@media only screen and (max-width: 800px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .footer-links li {
+        margin-bottom: 10px;
+    }
+
+    .footer-social {
+        margin-top: 5px;
+        gap: 10px;
+    }
+
+    .footer-social a {
+        padding: 10px;
+    }
 }
 
 /* Privacy */
