@@ -3,80 +3,121 @@
  * Usage: give a page a <canvas id="starfield-canvas"></canvas> and include
  * this script. The canvas is fixed, full-viewport, and sits behind page
  * content (z-index -1) via the #starfield-canvas CSS rule.
+ *
+ * Rendering is devicePixelRatio-aware (crisp on retina/high-DPI), links
+ * fade with distance, and the mouse attracts links from anywhere on the
+ * page (document-level tracking, so the canvas stays click-through).
  */
 (function () {
     var canvas = document.getElementById("starfield-canvas");
     if (!canvas) { return; }
 
     var ctx = canvas.getContext("2d");
+    var DPR = Math.min(window.devicePixelRatio || 1, 2);
     var FPS = 60;
-    var STAR_COUNT = 100;
-    var LINK_DISTANCE = 150;
-    var MOUSE_LINK_DISTANCE = 150;
+    var STAR_COUNT = 110;
+    var LINK_DISTANCE = 170;        // px, stars link to each other
+    var MOUSE_LINK_DISTANCE = 200;  // px, stars link to the cursor
+    var LINK_SQ = LINK_DISTANCE * LINK_DISTANCE;
+    var MOUSE_SQ = MOUSE_LINK_DISTANCE * MOUSE_LINK_DISTANCE;
 
     var stars = [];
-    var mouse = { x: 0, y: 0 };
+    var mouse = { x: 0, y: 0, active: false };
 
     var reducedMotion = false;
     try {
         reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     } catch (e) { /* older browsers */ }
 
+    /* ── geometry ─────────────────────────────────────────────────── */
+
+    function cssWidth() { return window.innerWidth; }
+    function cssHeight() { return window.innerHeight; }
+
     function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        // Backing store at native device resolution, drawing in CSS pixels.
+        canvas.width = Math.max(1, Math.floor(cssWidth() * DPR));
+        canvas.height = Math.max(1, Math.floor(cssHeight() * DPR));
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
     }
 
     function spawnStars() {
         stars = [];
         for (var i = 0; i < STAR_COUNT; i++) {
             stars.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                radius: Math.random() * 1 + 1,
+                x: Math.random() * cssWidth(),
+                y: Math.random() * cssHeight(),
+                radius: Math.random() * 1.2 + 0.6,
                 vx: Math.floor(Math.random() * 50) - 25,
-                vy: Math.floor(Math.random() * 50) - 25
+                vy: Math.floor(Math.random() * 50) - 25,
+                tw: Math.random() * Math.PI * 2   // twinkle phase
             });
         }
     }
 
-    function distance(point1, point2) {
-        var xs = (point2.x - point1.x);
-        var ys = (point2.y - point1.y);
-        return Math.sqrt(xs * xs + ys * ys);
-    }
+    /* ── drawing ──────────────────────────────────────────────────── */
 
     function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        var w = cssWidth(), h = cssHeight();
+        ctx.clearRect(0, 0, w, h);
         ctx.globalCompositeOperation = "lighter";
 
-        var i, j, s;
+        var i, j, s, s2, dx, dy, distSq, alpha;
 
+        // Stars: soft white dots, subtle twinkle, no stroke.
         for (i = 0; i < stars.length; i++) {
             s = stars[i];
-            ctx.fillStyle = "#fff";
+            var twinkle = 0.65 + 0.35 * Math.sin(s.tw);
+            ctx.globalAlpha = twinkle;
+            ctx.fillStyle = "#ffffff";
             ctx.beginPath();
             ctx.arc(s.x, s.y, s.radius, 0, 2 * Math.PI);
             ctx.fill();
         }
 
-        ctx.beginPath();
+        ctx.lineWidth = 0.75;
+        ctx.lineCap = "round";
+        ctx.strokeStyle = "#ffffff";
+
+        // Star-to-star links: opacity fades with distance.
         for (i = 0; i < stars.length; i++) {
-            var starI = stars[i];
-            ctx.moveTo(starI.x, starI.y);
-            if (distance(mouse, starI) < MOUSE_LINK_DISTANCE) {
-                ctx.lineTo(mouse.x, mouse.y);
-            }
+            s = stars[i];
             for (j = i + 1; j < stars.length; j++) {
-                var starII = stars[j];
-                if (distance(starI, starII) < LINK_DISTANCE) {
-                    ctx.lineTo(starII.x, starII.y);
+                s2 = stars[j];
+                dx = s2.x - s.x;
+                dy = s2.y - s.y;
+                distSq = dx * dx + dy * dy;
+                if (distSq < LINK_SQ) {
+                    alpha = 1 - Math.sqrt(distSq) / LINK_DISTANCE;
+                    ctx.globalAlpha = alpha * 0.45;
+                    ctx.beginPath();
+                    ctx.moveTo(s.x, s.y);
+                    ctx.lineTo(s2.x, s2.y);
+                    ctx.stroke();
                 }
             }
         }
-        ctx.lineWidth = 0.05;
-        ctx.strokeStyle = "white";
-        ctx.stroke();
+
+        // Mouse links: brighter, cursor-anchored constellation.
+        if (mouse.active) {
+            for (i = 0; i < stars.length; i++) {
+                s = stars[i];
+                dx = mouse.x - s.x;
+                dy = mouse.y - s.y;
+                distSq = dx * dx + dy * dy;
+                if (distSq < MOUSE_SQ) {
+                    alpha = 1 - Math.sqrt(distSq) / MOUSE_LINK_DISTANCE;
+                    ctx.globalAlpha = alpha * 0.8;
+                    ctx.beginPath();
+                    ctx.moveTo(s.x, s.y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        ctx.globalAlpha = 1;
+        ctx.globalCompositeOperation = "source-over";
     }
 
     function update() {
@@ -84,14 +125,14 @@
             var s = stars[i];
             s.x += s.vx / FPS;
             s.y += s.vy / FPS;
-            if (s.x < 0 || s.x > canvas.width) { s.vx = -s.vx; }
-            if (s.y < 0 || s.y > canvas.height) { s.vy = -s.vy; }
+            s.tw += 0.02;
+            if (s.x < 0 || s.x > cssWidth()) { s.vx = -s.vx; }
+            if (s.y < 0 || s.y > cssHeight()) { s.vy = -s.vy; }
         }
     }
 
     var lastTick = 0;
     function tick(timestamp) {
-        // Cap to ~60fps and skip frames if the tab can't keep up
         if (timestamp - lastTick >= 1000 / FPS) {
             lastTick = timestamp;
             draw();
@@ -100,14 +141,16 @@
         requestAnimationFrame(tick);
     }
 
-    canvas.addEventListener("mousemove", function (e) {
+    /* ── input: document-level so the canvas stays click-through ──── */
+
+    document.addEventListener("mousemove", function (e) {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
+        mouse.active = true;
     });
 
-    canvas.addEventListener("mouseleave", function () {
-        mouse.x = 0;
-        mouse.y = 0;
+    document.addEventListener("mouseleave", function () {
+        mouse.active = false;
     });
 
     window.addEventListener("resize", function () {
@@ -115,11 +158,8 @@
         spawnStars();
     });
 
-    // Pause when the tab is hidden (rAF already throttles, but this
-    // avoids stale mouse positions on return)
     document.addEventListener("visibilitychange", function () {
-        mouse.x = 0;
-        mouse.y = 0;
+        if (document.hidden) { mouse.active = false; }
     });
 
     resize();
