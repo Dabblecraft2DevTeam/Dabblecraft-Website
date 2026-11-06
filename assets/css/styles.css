@@ -927,6 +927,51 @@ footer {
     margin: 20px;
 }
 
+/* Email reveal button (privacy policy) - gated behind hCaptcha */
+.reveal-email-btn {
+    display: inline-block;
+    background-color: #008204;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 0.95em;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    padding: 12px 24px;
+    margin: 15px 20px 10px 20px;
+    max-width: calc(100% - 40px);
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.reveal-email-btn:hover {
+    background-color: #006603;
+    box-shadow: 0 0 12px rgba(0, 130, 4, 0.5);
+}
+
+.reveal-email-btn:active {
+    transform: scale(0.98);
+}
+
+.email-reveal-result {
+    margin: 10px 20px;
+    color: #98fb98;
+    font-size: 1.05em;
+    word-break: break-all;
+}
+
+.email-reveal-result a {
+    color: #6fdd8f;
+    text-decoration: underline;
+}
+
+.email-reveal-result a:hover {
+    color: #98fb98;
+}
+
 .table-container {
     margin: 20px;
     overflow-x: auto;
