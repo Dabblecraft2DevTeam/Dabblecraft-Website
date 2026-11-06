@@ -194,10 +194,24 @@
     var result = document.getElementById('email-reveal-result');
     if (!btn || !result) { return; }
 
-    // Email address is NOT present in the HTML source. It is fetched from
-    // the server only after a verified hCaptcha token, so scrapers and bots
-    // harvesting the page cannot obtain it.
     var rendered = false;
+
+    function onHcaptchaReady(cb) {
+        // Wait for the async api.js to expose the global (it may still be
+        // loading when the user clicks fast).
+        if (typeof hcaptcha !== 'undefined') { cb(); return; }
+        var tries = 0;
+        var iv = setInterval(function () {
+            tries++;
+            if (typeof hcaptcha !== 'undefined') {
+                clearInterval(iv);
+                cb();
+            } else if (tries > 40) { // ~20s timeout
+                clearInterval(iv);
+                result.textContent = 'Captcha failed to load. Please use the contact form instead.';
+            }
+        }, 500);
+    }
 
     function showEmail(email) {
         var link = document.createElement('a');
@@ -216,51 +230,47 @@
     }
 
     btn.addEventListener('click', function () {
-        if (typeof hcaptcha === 'undefined') {
-            result.textContent = 'Captcha failed to load. Please use the contact form instead.';
-            return;
-        }
-        if (!rendered) {
-            var holder = document.createElement('div');
-            holder.id = 'email-reveal-captcha';
-            holder.className = 'h-captcha';
-            // data-sitekey: replace with the real sitekey when created at
-            // dashboard.hcaptcha.com (same sitekey as the contact form works)
-            holder.setAttribute('data-sitekey', 'YOUR_HCAPTCHA_SITEKEY');
-            holder.setAttribute('data-size', 'invisible');
-            btn.parentElement.appendChild(holder);
+        onHcaptchaReady(function () {
+            if (!rendered) {
+                var holder = document.createElement('div');
+                holder.id = 'email-reveal-captcha';
+                holder.className = 'h-captcha';
+                holder.setAttribute('data-sitekey', '2fe439ec-829a-430c-a9e6-fd6c6c62ddd2');
+                holder.setAttribute('data-size', 'invisible');
+                btn.parentElement.appendChild(holder);
 
-            hcaptcha.render(holder, {
-                callback: function (token) {
-                    var payload = 'h-captcha-response=' + encodeURIComponent(token);
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'assets/PHP/verify_email_reveal.php', true);
-                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                    xhr.onload = function () {
-                        var resp = (xhr.responseText || '').trim();
-                        if (xhr.status === 200 && resp.indexOf('|') !== -1) {
-                            // server returns "OK|support@..." - email never appears in this page's source
-                            showEmail(resp.split('|')[1]);
-                        } else {
-                            fail('Verification failed. Please try again or use the contact form.');
-                        }
-                    };
-                    xhr.onerror = function () {
-                        fail('Verification error. Please use the contact form instead.');
-                    };
-                    xhr.send(payload);
-                },
-                'error-callback': function () {
-                    fail('Captcha error. Please try again.');
-                }
-            });
-            rendered = true;
-        }
-        try {
-            hcaptcha.execute('email-reveal-captcha');
-        } catch (e) {
-            result.textContent = 'Captcha could not start. Please use the contact form.';
-        }
+                hcaptcha.render(holder, {
+                    callback: function (token) {
+                        var payload = 'h-captcha-response=' + encodeURIComponent(token);
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('POST', 'assets/PHP/verify_email_reveal.php', true);
+                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                        xhr.onload = function () {
+                            var resp = (xhr.responseText || '').trim();
+                            if (xhr.status === 200 && resp.indexOf('|') !== -1) {
+                                // server returns "OK|support@..." - email never appears in this page's source
+                                showEmail(resp.split('|')[1]);
+                            } else {
+                                fail('Verification failed. Please try again or use the contact form.');
+                            }
+                        };
+                        xhr.onerror = function () {
+                            fail('Verification error. Please use the contact form instead.');
+                        };
+                        xhr.send(payload);
+                    },
+                    'error-callback': function () {
+                        fail('Captcha error. Please try again.');
+                    }
+                });
+                rendered = true;
+            }
+            try {
+                hcaptcha.execute('email-reveal-captcha');
+            } catch (e) {
+                result.textContent = 'Captcha could not start. Please use the contact form.';
+            }
+        });
     });
 })();
 </script>
